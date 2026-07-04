@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <meta name="theme-color" content="#0a0a0a">
+
+    <title>VAPE SHOP | PPHUB</title>
+
+    <link rel="stylesheet" href="styles.css?v=15">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <script>
+
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+        window.scrollTo(0, 0);
+
+    </script>
+
+</head>
+
+<body>
+
+    <div class="smoke-bg" aria-hidden="true"></div>
+
+
+
+    <nav class="navbar" id="navbar">
+
+        <div class="nav-container">
+
+            <div class="logo">
+
+                <span class="logo-badge">PP</span><span class="logo-hub">HUB</span>
+
+            </div>
+
+            <div class="nav-tabs" role="tablist" aria-label="Разделы магазина">
+
+                <button class="tab-btn active" data-tab="catalog" role="tab" aria-selected="true">🛒 Каталог</button>
+
+                <button class="tab-btn" data-tab="cart" role="tab" aria-selected="false">🛍️ Корзина <span class="cart-count">0</span></button>
+
+                <button class="tab-btn" data-tab="admin" role="tab" aria-selected="false">⚙️ Админ</button>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <aside class="category-bar visible" id="categoryBar" aria-label="Фильтр категорий">
+
+        <div class="category-bar-inner">
+
+            <div class="category-filter" role="group" aria-label="Категории товаров">
+
+                <button class="filter-btn active" data-category="all">Все</button>
+
+                <button class="filter-btn" data-category="vapes">Вейпы</button>
+
+                <button class="filter-btn" data-category="liquids">Жидкости</button>
+
+                <button class="filter-btn" data-category="disposable">Одноразки</button>
+
+                <button class="filter-btn" data-category="parts">Комплектующие</button>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <main class="main-content">
+
+        <section id="catalog" class="tab-content active" role="tabpanel">
+
+            <div class="container">
+
+                <div class="products-grid" id="productsGrid"></div>
+
+            </div>
+
+        </section>
+
+
+
+        <section id="cart" class="tab-content" role="tabpanel">
+
+            <div class="container">
+
+                <h2 class="section-title">🛒 Ваша корзина</h2>
+
+                <div class="cart-items" id="cartItems"></div>
+
+                <div class="cart-summary" id="cartSummary">
+
+                    <div class="total">Итого: <span id="totalPrice">0 ₽</span></div>
+
+                </div>
+
+                <div class="order-form" id="orderForm">
+
+                    <h3>📦 Оформление заказа</h3>
+
+                    <input type="text" id="customerTelegram" placeholder="Telegram @username (опционально)" class="input-field" autocomplete="off">
+
+                    <textarea id="customerComment" placeholder="Комментарий к заказу" class="input-field"></textarea>
+
+                    <div class="payment-info">💳 Оплата: при встрече (наличными или переводом)</div>
+
+                    <button class="btn-order" id="btnOrder">ОФОРМИТЬ ЗАКАЗ</button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <section id="admin" class="tab-content" role="tabpanel">
+
+            <div class="container">
+
+                <h2 class="section-title">⚙️ Админ-панель</h2>
+
+                <div class="admin-login" id="adminLogin">
+
+                    <div class="admin-card">
+
+                        <h3>🔐 Вход для администратора</h3>
+
+                        <input type="password" id="adminPassword" placeholder="Введите пароль" class="input-field" autocomplete="current-password">
+
+                        <button class="btn-admin-login" id="btnAdminLogin">ВОЙТИ</button>
+
+                    </div>
+
+                </div>
+
+                <div class="admin-panel hidden" id="adminPanel">
+
+                    <div class="admin-tabs">
+
+                        <button class="admin-tab active" data-admin-tab="add">➕ Добавить товар</button>
+
+                        <button class="admin-tab" data-admin-tab="manage">📋 Управление товарами</button>
+
+                    </div>
+
+                    <div class="admin-content active" id="adminAdd">
+
+                        <div class="add-product-form">
+
+                            <h3>Добавить новый товар</h3>
+
+                            <input type="text" id="productName" placeholder="Название товара" class="input-field">
+
+                            <select id="productCategory" class="input-field">
+
+                                <option value="vapes">Вейпы</option>
+
+                                <option value="liquids">Жидкости</option>
+
+                                <option value="disposable">Одноразки</option>
+
+                                <option value="parts">Комплектующие</option>
+
+                            </select>
+
+                            <input type="number" id="productPrice" placeholder="Цена (₽)" class="input-field" min="0">
+
+                            <textarea id="productDesc" placeholder="Описание" class="input-field"></textarea>
+
+                            <div class="image-upload">
+
+                                <label for="productImage" class="upload-label">📷 Загрузить фото</label>
+
+                                <input type="file" id="productImage" accept="image/*" class="input-file">
+
+                                <div class="image-preview" id="imagePreview"></div>
+
+                            </div>
+
+                            <div class="stock-toggle">
+
+                                <label>В наличии:</label>
+
+                                <input type="checkbox" id="productInStock" checked class="toggle-checkbox">
+
+                                <label for="productInStock" class="toggle-label"></label>
+
+                            </div>
+
+                            <button class="btn-add-product" id="btnAddProduct">ДОБАВИТЬ ТОВАР</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="admin-content" id="adminManage">
+
+                        <h3>Список товаров</h3>
+
+                        <div class="products-list" id="productsList"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <div class="notifications" id="notifications" aria-live="polite"></div>
+
+
+
+    <div class="modal" id="productModal" aria-hidden="true">
+
+        <div class="modal-content">
+
+            <button class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
+
+            <div class="modal-body" id="modalBody"></div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        window.addEventListener('DOMContentLoaded', function () {
+
+            setTimeout(function () {
+
+                if (window.PPHUB_READY) return;
+
+                var banner = document.createElement('div');
+
+                banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#ff4444;color:#fff;padding:16px 20px;text-align:center;z-index:99999;font-family:system-ui,sans-serif;font-size:14px;line-height:1.5;';
+
+                banner.innerHTML = 'Не загрузился <b>app.js</b>. Запустите <b>start.bat</b> из папки PPHub или откройте сайт через локальный сервер.';
+
+                document.body.prepend(banner);
+
+            }, 800);
+
+        });
+
+    </script>
+
+    <script src="app.js?v=14" defer></script>
+
+</body>
+
+</html>
+
+
